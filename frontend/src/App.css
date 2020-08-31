@@ -1,0 +1,9 @@
+.classleft{
+    position: absolute;
+    left: 500px;
+}
+
+.classright{
+    position: absolute;
+    right: 500px;
+}
