@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AddCountryForm from './forms/AddCountryForm'
 import EditCountryForm from './forms/EditCountryForm'
@@ -9,7 +9,10 @@ import './App.css'
 const App = () => {
 
 	// Data
-		const countriesData = [
+	
+		const [countriesData,setCountriesData] = useState([]);
+
+		/*[
 			{ id: 1, name: 'Greece', capital: 'Athens' },
 			{ id: 2, name: 'Italy', capital: 'Rome' },
 			{ id: 3, name: 'Hungary', capital: 'Budapest' },
@@ -20,7 +23,7 @@ const App = () => {
 			{ id: 8, name: 'Russia', capital: 'Moscow' },
 			{ id: 9, name: 'France', capital: 'Paris' },
 			{ id: 10, name: 'Norway', capital: 'Oslo' },
-		]
+		]*/
 		
 	const initialFormState = { id: null, name: '', capital: '' }
 
@@ -33,14 +36,15 @@ const App = () => {
 	// CRUD operations
 
 	const addCountry = async (country) => {
+		console.log(country);
 		country.id = countries.length + 1
-		//await axios.post(`http://localhost:3001/${country}`);
+		await axios.post(`http://localhost:3001/`,country);
 		setCountries([ ...countries, country ])
 	}
 	
 	const deleteCountry = async (id) => {
 		setEditing(false)
-		//await axios.delete(`http://localhost:3001/${id}`);
+		await axios.delete(`http://localhost:3001/${id}`);
 		setCountries(countries.filter(country => country.id !== id))
 	}
 
@@ -50,9 +54,16 @@ const App = () => {
 		setCountries(countries.map(country => (country.id === id ? updatedCountry : country)))
 	}
 
+	useEffect(()=>{
+		(async ()=>{
+			const {data} = await axios.get('http://localhost:3001');
+			setCountriesData(data);
+			setCountries(data)
+		})();
+	},[])
+
 	const editRow = async (country) => {
 		setEditing(true)
-		//await axios.get(`http://localhost:3001/${country/1/}`);
 		setCurrentCountry({ id: country.id, name: country.name, capital: country.capital })
 	}
 
