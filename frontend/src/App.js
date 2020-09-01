@@ -3,24 +3,25 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import AddCountryForm from './forms/AddCountryForm'
 import EditCountryForm from './forms/EditCountryForm'
 import CountryTable from './tables/CountryTable';
-//import axios from 'axios';
+import axios from 'axios';
 import './App.css'
 
 const App = () => {
-	// Data
-	const countriesData = [
-		{ id: 1, name: 'Greece', capital: 'Athens' },
-		{ id: 2, name: 'Italy', capital: 'Rome' },
-		{ id: 3, name: 'Hungary', capital: 'Budapest' },
-		{ id: 4, name: 'Spain', capital: 'Madrid' },
-		{ id: 5, name: 'Germany', capital: 'Berlin' },
-		{ id: 6, name: 'Denmark', capital: 'Copenhagen' },
-		{ id: 7, name: 'Portugal', capital: 'Lisbon' },
-		{ id: 8, name: 'Russia', capital: 'Moscow' },
-		{ id: 9, name: 'France', capital: 'Paris' },
-		{ id: 10, name: 'Norway', capital: 'Oslo' },
-	]
 
+	// Data
+		const countriesData = [
+			{ id: 1, name: 'Greece', capital: 'Athens' },
+			{ id: 2, name: 'Italy', capital: 'Rome' },
+			{ id: 3, name: 'Hungary', capital: 'Budapest' },
+			{ id: 4, name: 'Spain', capital: 'Madrid' },
+			{ id: 5, name: 'Germany', capital: 'Berlin' },
+			{ id: 6, name: 'Denmark', capital: 'Copenhagen' },
+			{ id: 7, name: 'Portugal', capital: 'Lisbon' },
+			{ id: 8, name: 'Russia', capital: 'Moscow' },
+			{ id: 9, name: 'France', capital: 'Paris' },
+			{ id: 10, name: 'Norway', capital: 'Oslo' },
+		]
+		
 	const initialFormState = { id: null, name: '', capital: '' }
 
 	// Setting state
@@ -45,7 +46,7 @@ const App = () => {
 
 	const updateCountry = async (id, updatedCountry) => {
 		setEditing(false)
-		//await axios.put(`http://localhost:3001/${id}`,updatedCountry);
+		await axios.put(`http://localhost:3001/${id}`,updatedCountry);
 		setCountries(countries.map(country => (country.id === id ? updatedCountry : country)))
 	}
 
