@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import AddCountryForm from './forms/AddCountryForm'
-import EditCountryForm from './forms/EditCountryForm'
+import AddCountryForm from './components/AddCountryForm'
+import EditCountryForm from './components/EditCountryForm'
 import CountryTable from './tables/CountryTable';
 import axios from 'axios';
 import './App.css'
